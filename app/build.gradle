@@ -58,4 +58,7 @@ dependencies {
     // Google Play Service
     implementation 'com.google.android.gms:play-services-location:19.0.1'
 
+    // Card View
+    implementation "androidx.cardview:cardview:1.0.0"
+
 }

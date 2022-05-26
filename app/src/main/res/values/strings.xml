@@ -2,5 +2,8 @@
     <string name="app_name">My Application</string>
     <string name="nearby_stops">Nearby stops</string>
     <string name="please_enable_location">Please enable the location permission</string>
-    <string name="unable_to_get_user_location">"Error: Unable to get user location"</string>
+    <string name="unable_to_get_user_location">Error: Unable to get user location</string>
+    <string name="unable_to_retrieve_stops">Error: Unable to retrieve nearby stops</string>
+    <string name="internal_server_error">Internal Server Error. Please try again</string>
+    <string name="update_api_key">Please update your API key</string>
 </resources>
