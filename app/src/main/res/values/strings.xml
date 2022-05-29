@@ -6,4 +6,5 @@
     <string name="unable_to_retrieve_stops">Error: Unable to retrieve nearby stops</string>
     <string name="internal_server_error">Internal Server Error. Please try again</string>
     <string name="update_api_key">Please update your API key</string>
+    <string name="meters_away">%1d meters</string>
 </resources>

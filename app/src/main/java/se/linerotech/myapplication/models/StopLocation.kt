@@ -1,8 +1,12 @@
 package se.linerotech.myapplication.models
 
 
-import com.google.gson.annotations.SerializedName
 
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class StopLocation(
     @SerializedName("id")
     val id: String = "",
@@ -14,4 +18,4 @@ data class StopLocation(
     val name: String = "",
     @SerializedName("track")
     val track: String = ""
-)
+): Parcelable

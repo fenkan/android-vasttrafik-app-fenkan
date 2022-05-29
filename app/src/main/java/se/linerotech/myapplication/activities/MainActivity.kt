@@ -1,7 +1,9 @@
 package se.linerotech.myapplication.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,7 +26,8 @@ import se.linerotech.myapplication.repository.RetrofitClient
 
 class MainActivity : AppCompatActivity() {
 
-    var progressBar: ProgressBar? = null
+    private var progressBar: ProgressBar? = null
+    private var userLocation: Location? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,8 +84,9 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<StopData>, response: Response<StopData>) {
                     if (response.isSuccessful) {
                         // Show the items to the user
-                        val listOfStops = response.body()?.locationList?.stopLocation ?: emptyList()
-                        showItems(listOfStops)
+                        val filteredListOfStops = response.body()?.locationList?.stopLocation?.distinctBy { it.name }
+                            ?: emptyList()
+                        showItems(filteredListOfStops)
 
                     }else {
                         // Determine the reason of failure
@@ -119,6 +123,9 @@ class MainActivity : AppCompatActivity() {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
             .addOnSuccessListener {
+                // Set the location of the user
+                userLocation = it
+
                 //Get the nearby stops from the user location
                 queryNearByStops(it.latitude, it.longitude)
 
@@ -135,7 +142,11 @@ class MainActivity : AppCompatActivity() {
         progressBar?.visibility = View.GONE
 
         // Initialize the adapter
-        val recyclerViewAdapter = StopsRecyclerViewAdapter(listOfStops)
+        val recyclerViewAdapter = StopsRecyclerViewAdapter(listOfStops, userLocation, this){
+            val intent = Intent(this, DepartureActivity::class.java)
+            intent.putExtra(DepartureActivity.KEY_STOP, it)
+            startActivity(intent)
+        }
 
         // Connect the adapter to the recycler view
         val recyclerView = findViewById<RecyclerView>(R.id.mainActivityRecyclerView)
