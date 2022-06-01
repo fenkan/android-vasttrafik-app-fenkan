@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -63,6 +65,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.map -> {
+                startActivity(Intent(this, MapActivity::class.java))
+                true
+            }
+            else -> {
+                false
+            }
+        }
     }
 
     private fun queryNearByStops(latitude: Double, longitude: Double) {
@@ -123,11 +143,17 @@ class MainActivity : AppCompatActivity() {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
             .addOnSuccessListener {
-                // Set the location of the user
-                userLocation = it
+
 
                 //Get the nearby stops from the user location
-                queryNearByStops(it.latitude, it.longitude)
+                if(it == null) {
+                    Toast.makeText(this, "Location permission not granted", Toast.LENGTH_LONG).show()
+                }else {
+                    // Set the location of the user
+                    userLocation = it
+                    queryNearByStops(it.latitude, it.longitude)
+
+                }
 
             }
             .addOnFailureListener{

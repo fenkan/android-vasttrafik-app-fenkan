@@ -7,4 +7,8 @@
     <string name="internal_server_error">Internal Server Error. Please try again</string>
     <string name="update_api_key">Please update your API key</string>
     <string name="meters_away">%1d meters</string>
+    <string name="unable_to_get_departure_data">Unable to get departure data</string>
+    <string name="platform">Platform %1$s</string>
+    <string name="map_view">Map View</string>
+    <string name="mapbox_acces_token">pk.eyJ1IjoiZmVua2FuIiwiYSI6ImNsM3VubmRzYzFqc3gzY2x0cWQ1bXF2YTgifQ.eLhgSPWeKawatJbydlLShQ</string>
 </resources>

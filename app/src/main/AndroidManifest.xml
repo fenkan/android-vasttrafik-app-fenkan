@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".activities.MapActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.DepartureActivity"
             android:exported="false" />
         <activity
